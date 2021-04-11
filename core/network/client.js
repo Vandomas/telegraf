@@ -239,6 +239,13 @@ function canMethodParseMode(method, payload) {
     && !payload.caption_entities
 }
 
+function canMethodDisableWebPagePreview(method, payload) {
+  return PARSE_MODE_METHODS.includes(method)
+    && payload.disable_web_page_preview === undefined
+    && !payload.entities
+    && !payload.caption_entities
+}
+
 class ApiClient {
   constructor (token, options, webhookResponse) {
     this.token = token
@@ -266,7 +273,7 @@ class ApiClient {
      if (options.parse_mode && canMethodParseMode(method, data)) {
       data = { parse_mode: options.parse_mode, ...data }
     }
-    if (options.disable_web_page_preview && canMethodParseMode(method, data)) {
+    if (options.disable_web_page_preview && canMethodDisableWebPagePreview(method, data)) {
       data = { disable_web_page_preview: options.disable_web_page_preview, ...data }
     }
     

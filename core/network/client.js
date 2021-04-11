@@ -219,6 +219,26 @@ function answerToWebhook (response, payload = {}, options) {
     })
 }
 
+const PARSE_MODE_METHODS = [
+  'sendMessage',
+  'sendPhoto',
+  'sendVideo',
+  'sendAnimation',
+  'sendAudio',
+  'sendDocument',
+  'sendVoice',
+  'copyMessage',
+  'editMessageText',
+  'editMessageCaption'
+]
+
+function canMethodParseMode(method, payload) {
+  return PARSE_MODE_METHODS.includes(method)
+    && payload.parse_mode === undefined
+    && !payload.entities
+    && !payload.caption_entities
+}
+
 class ApiClient {
   constructor (token, options, webhookResponse) {
     this.token = token

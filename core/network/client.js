@@ -243,6 +243,13 @@ class ApiClient {
   callApi (method, data = {}) {
     const { token, options, response, responseEnd } = this
 
+     if (options.parse_mode && canMethodParseMode(method, data)) {
+      data = { parse_mode: options.parse_mode, ...data }
+    }
+    if (options.disable_web_page_preview && canMethodParseMode(method, data)) {
+      data = { disable_web_page_preview: options.disable_web_page_preview, ...data }
+    }
+    
     const payload = Object.keys(data)
       .filter((key) => typeof data[key] !== 'undefined' && data[key] !== null)
       .reduce((acc, key) => ({ ...acc, [key]: data[key] }), {})

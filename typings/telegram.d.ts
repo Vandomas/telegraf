@@ -20,6 +20,18 @@ export interface TelegramOptions {
    * Path to API. default: https://api.telegram.org
    */
   apiRoot?: string
+  
+  /**
+ * Default parse mode. If specified it will be propagated into the API methods.
+ * Available: HTML, Markdown, MarkdownV2.
+ */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2'
+
+
+  /**
+   * Disables link previews for links in this message
+   */
+  disable_web_page_preview?: boolean
 }
 
 declare class ApiClient {
